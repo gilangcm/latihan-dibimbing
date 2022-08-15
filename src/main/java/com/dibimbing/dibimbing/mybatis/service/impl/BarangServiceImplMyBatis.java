@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,8 +38,8 @@ public class BarangServiceImplMyBatis implements BarangServiceMyBatis {
     }
 
     @Override
-    public void insertProcedure(Double rqharga, String rqnama, String rqsatuan, int rqstok, int resid) {
-        barangRepoMybatis.insertProcedure( rqharga,  rqnama,  rqsatuan,  rqstok,  resid);
+    public void insertProcedure(Double rqharga, String rqnama, String rqsatuan, int rqstok, int resid, Date created_date) {
+        barangRepoMybatis.insertProcedure( rqharga,  rqnama,  rqsatuan,  rqstok,  resid,created_date);
 
     }
 

@@ -2,6 +2,8 @@ package com.dibimbing.dibimbing.mybatis.model;
 
 import lombok.Data;
 
+import java.sql.Date;
+
 @Data
 public class BarangMyBatis {
     Long resid ;
@@ -10,6 +12,7 @@ public class BarangMyBatis {
     Double resharga;
     Integer resstok;
     String reserordesc;
+    Date created_date;
     Integer reserorcode;
 
 

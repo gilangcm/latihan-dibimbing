@@ -32,6 +32,7 @@ public class BarangControllerMyBatis {
                 objModel.getNama(),
                 objModel.getSatuan(),
                 objModel.getStok(),
+                objModel.getCreated_date(),
                 Integer.parseInt(objModel.getId().toString()));
         return new ResponseEntity<>(map, HttpStatus.OK);
     }

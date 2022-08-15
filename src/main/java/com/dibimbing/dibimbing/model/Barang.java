@@ -5,6 +5,8 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.sql.Date;
+
 @Data
 @Entity
 @Table(name = "barang")
@@ -27,4 +29,7 @@ public class Barang implements Serializable {
 
     @Column(name = "harga",  length = 11)
     private Double harga;
+
+    @Column(name = "created_date",  length = 15)
+    private Date created_date;
 }

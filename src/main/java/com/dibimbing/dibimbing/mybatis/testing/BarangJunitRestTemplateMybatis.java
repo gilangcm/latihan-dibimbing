@@ -1,11 +1,13 @@
 package com.dibimbing.dibimbing.mybatis.testing;
 
+import com.dibimbing.dibimbing.utils.QueryPS;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static org.junit.Assert.assertEquals;
@@ -16,6 +18,27 @@ import static org.junit.Assert.assertEquals;
 public class BarangJunitRestTemplateMybatis {
     @Autowired
     private TestRestTemplate restTemplate;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    QueryPS queryPS;
+
+    @Test
+    public void callAllSP(){
+//membuat procedure melalui aplikasi spring boot
+        jdbcTemplate.execute(queryPS.getBarang1);
+        jdbcTemplate.execute(queryPS.testInteger);
+        jdbcTemplate.execute(queryPS.save);
+        jdbcTemplate.execute(queryPS.testSP);
+        jdbcTemplate.execute(queryPS.updatebarang);
+        jdbcTemplate.execute(queryPS.deletebarang);
+        jdbcTemplate.execute(queryPS.updatebarangoutwitheror);
+        jdbcTemplate.execute(queryPS.testLong);
+        jdbcTemplate.execute(queryPS.testDouble);
+        jdbcTemplate.execute(queryPS.getByIDSP);
+    }
 
     @Test
     public void listSukses() {
@@ -34,7 +57,7 @@ public class BarangJunitRestTemplateMybatis {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "*/*");
         headers.set("Content-Type", "application/json");
-        Integer id = 3;
+        Integer id = 2;
         ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:9090/api/v1/sp/barang/"+id, HttpMethod.GET, null, String.class);
         System.out.println("response  =" + exchange.getBody());
         assertEquals(HttpStatus.OK, exchange.getStatusCode());
@@ -46,11 +69,11 @@ public class BarangJunitRestTemplateMybatis {
         headers.set("Accept", "*/*");
         headers.set("Content-Type", "application/json");
         String bodyTesting = "{\n" +
-                "    \"id\":\"0\",\n" +
+                "    \"id\":\"3\",\n" +
                 "    \"nama\":\"barang baru\",\n" +
                 "    \"stok\":\"1\",\n" +
                 "    \"satuan\":\"pcs\",\n" +
-                "    \"harga\":\"123\"\n" +
+                "    \"harga\":\"9870\"\n" +
                 "}";
         HttpEntity<String> entity = new HttpEntity<String>(bodyTesting, headers);
         System.out.println("bodyTesting  =" + bodyTesting);
@@ -66,7 +89,7 @@ public class BarangJunitRestTemplateMybatis {
         headers.set("Accept", "*/*");
         headers.set("Content-Type", "application/json");
         String bodyTesting = "{\n" +
-                "    \"id\":\"8\",\n" +
+                "    \"id\":\"2\",\n" +
                 "    \"nama\":\"pulpen update\",\n" +
                 "    \"stok\":\"1\",\n" +
                 "    \"satuan\":\"pcs\",\n" +
