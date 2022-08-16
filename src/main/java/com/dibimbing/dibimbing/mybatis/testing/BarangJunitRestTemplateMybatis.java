@@ -102,6 +102,15 @@ public class BarangJunitRestTemplateMybatis {
         assertEquals(HttpStatus.OK, exchange.getStatusCode());
         System.out.println("response  =" + exchange.getBody());
     }
+    @Test
+    public void deleted(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "*/*");
+        headers.set("Content-Type", "application/json");
+        HttpEntity<String> entity = new HttpEntity<~>( null, headers);
+        Long id = 2L;
+
+    }
 
 
 }
