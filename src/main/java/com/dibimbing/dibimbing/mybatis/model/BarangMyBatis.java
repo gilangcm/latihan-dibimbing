@@ -12,7 +12,6 @@ public class BarangMyBatis {
     Double resharga;
     Integer resstok;
     String reserordesc;
-    Date created_date;
     Integer reserorcode;
 
 

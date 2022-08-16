@@ -38,8 +38,8 @@ public class BarangServiceImplMyBatis implements BarangServiceMyBatis {
     }
 
     @Override
-    public void insertProcedure(Double rqharga, String rqnama, String rqsatuan, int rqstok, int resid, Date created_date) {
-        barangRepoMybatis.insertProcedure( rqharga,  rqnama,  rqsatuan,  rqstok,  resid,created_date);
+    public void insertProcedure(Double rqharga, String rqnama, String rqsatuan, int rqstok, int resid) {
+        barangRepoMybatis.insertProcedure( rqharga,  rqnama,  rqsatuan,  rqstok,  resid);
 
     }
 

@@ -2,34 +2,36 @@ package com.dibimbing.dibimbing.model;
 
 import lombok.Data;
 import org.hibernate.annotations.Where;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.sql.Date;
 
 @Data
 @Entity
 @Table(name = "barang")
 @Where(clause = "deleted_date is null")
-public class Barang implements Serializable {
-
+public class Barang extends AbstractDate implements Serializable{
+    //GenerationType.AUTO : nextvall all tabel sequense
+    // GenerationType.IDENTITY : nextvall per tabel sequense
     @Id
     @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "nama", nullable = true, length = 45)
+    @Column(name = "nama", nullable = false, length = 45)
     private String nama;
 
     @Column(name = "stok", nullable = false, length = 11)
     private int stok;
 
-    @Column(name = "satuan",  length = 45)
+    @Column(name = "satuan", nullable = false, length = 45)
     private String satuan;
 
-    @Column(name = "harga",  length = 11)
+    @Column(name = "harga", nullable = false, length = 11)
     private Double harga;
 
-    @Column(name = "created_date",  length = 15)
-    private Date created_date;
+    // wajib
+//    @ManyToOne(targetEntity = Supplier.class, cascade = CascadeType.ALL)
+//    private Supplier supplier;//ok supplier_id
+
+
 }

@@ -70,10 +70,10 @@ public class BarangJunitRestTemplateMybatis {
         headers.set("Content-Type", "application/json");
         String bodyTesting = "{\n" +
                 "    \"id\":\"3\",\n" +
-                "    \"nama\":\"barang baru\",\n" +
-                "    \"stok\":\"1\",\n" +
+                "    \"nama\":\"barang 3\",\n" +
+                "    \"stok\":\"39\",\n" +
                 "    \"satuan\":\"pcs\",\n" +
-                "    \"harga\":\"9870\"\n" +
+                "    \"harga\":\"11850\"\n" +
                 "}";
         HttpEntity<String> entity = new HttpEntity<String>(bodyTesting, headers);
         System.out.println("bodyTesting  =" + bodyTesting);

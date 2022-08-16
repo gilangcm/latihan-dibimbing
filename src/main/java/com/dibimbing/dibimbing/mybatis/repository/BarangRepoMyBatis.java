@@ -19,7 +19,7 @@ public interface BarangRepoMyBatis {
     List<BarangMyBatis> selectList(String rqnama);
 
     @Insert("call savebarang(#{rqharga,mode=IN},#{rqnama,mode=IN},#{rqsatuan,mode=IN},#{rqstok,mode=IN},#{resid,mode=INOUT})")
-    void insertProcedure(Double rqharga, String rqnama, String rqsatuan, Date created_date, int rqstok, int resid);
+    void insertProcedure(Double rqharga, String rqnama, String rqsatuan, int rqstok, int resid);
 
     @Update("call updatebarang(#{rqharga,mode=IN},#{rqnama,mode=IN},#{rqsatuan,mode=IN},#{rqstok,mode=IN},#{resid,mode=INOUT})")
     void updateProcedure(Double rqharga, String rqnama, String rqsatuan, int rqstok, int resid);
