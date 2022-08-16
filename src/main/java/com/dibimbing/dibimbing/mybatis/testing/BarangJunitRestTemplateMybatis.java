@@ -57,7 +57,7 @@ public class BarangJunitRestTemplateMybatis {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "*/*");
         headers.set("Content-Type", "application/json");
-        Integer id = 2;
+        Integer id = 3;
         ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:9090/api/v1/sp/barang/"+id, HttpMethod.GET, null, String.class);
         System.out.println("response  =" + exchange.getBody());
         assertEquals(HttpStatus.OK, exchange.getStatusCode());
@@ -102,15 +102,17 @@ public class BarangJunitRestTemplateMybatis {
         assertEquals(HttpStatus.OK, exchange.getStatusCode());
         System.out.println("response  =" + exchange.getBody());
     }
-    @Test
-    public void deleted(){
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Accept", "*/*");
-        headers.set("Content-Type", "application/json");
-        HttpEntity<String> entity = new HttpEntity<~>( null, headers);
-        Long id = 2L;
-
-    }
+//    @Test
+//    public void deleteSukses(){
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.set("Accept", "*/*");
+//        headers.set("Content-Type", "application/json");
+//        Long id = 2L;
+//        ResponseEntity<String> exchange = restTemplate.exchange("http://localhost:9090/api/v1/sp/karyawan/delete/"+id, HttpMethod.DELETE, null, String.class);
+//        System.out.println("response  =" + exchange.getBody());
+//        assertEquals(HttpStatus.OK, exchange.getStatusCode());
+//
+//    }
 
 
 }

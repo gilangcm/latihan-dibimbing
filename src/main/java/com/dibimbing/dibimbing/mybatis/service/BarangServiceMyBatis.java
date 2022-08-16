@@ -27,6 +27,8 @@ public interface BarangServiceMyBatis {
     Map savebarangoutwitheror(Double rqharga, String rqnama, String rqsatuan, int rqstok, Integer resid);
 
 
+
+
     //    use xml
     public Map updateProcedureXML(BarangMyBatis item);
     List<BarangMyBatis> listBarangXML(BarangMyBatis item);
