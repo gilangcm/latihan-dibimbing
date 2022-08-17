@@ -1,5 +1,5 @@
 package com.dibimbing.dibimbing.service;
-import com.dibimbing.dibimbing.model.Karyawan
+import com.dibimbing.dibimbing.model.Karyawan;
 import com.dibimbing.dibimbing.model.Rekening;
 
 import java.util.Map;
