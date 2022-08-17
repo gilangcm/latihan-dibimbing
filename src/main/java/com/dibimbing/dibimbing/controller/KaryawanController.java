@@ -1,109 +1,64 @@
 package com.dibimbing.dibimbing.controller;
 
 import com.dibimbing.dibimbing.model.Karyawan;
+import com.dibimbing.dibimbing.repository.KaryawanRepository;
+import com.dibimbing.dibimbing.service.KaryawanService;
+import com.dibimbing.dibimbing.utils.TemplateResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
+import java.util.Map;
 
-@Controller
-@RequestMapping("/v1/view/karyawan")
+@RestController
+@RequestMapping("/v1/karyawan")
 public class KaryawanController {
+
     @Autowired
-    public com.dibimbing.dibimbing.service.KaryawanService karyawanService;
-    private final int ROW_PER_PAGE = 5;
+    public KaryawanService karyawanService;
 
-    @GetMapping(value = {"/", "/indeks"})
-    public String indeks(Model model) {
-        model.addAttribute("title", "Karyawan Perusahaan ABC");
-        return "indeks";
-    }
-    @GetMapping(value = "/list")
-    public String getKaryawan(Model model,
-                            @RequestParam(value = "page", defaultValue = "1") int pageNumber) {
-        List<Karyawan> karyawans = karyawanService.dataKyw(pageNumber, ROW_PER_PAGE);
+    @Autowired
+    public KaryawanRepository karyawanRepository;
 
-        long count = karyawans== null ? 1 :karyawans.size();
-        boolean hasPrev = pageNumber > 1;
-        boolean hasNext = (pageNumber * ROW_PER_PAGE) < count;
-        model.addAttribute("karyawans", karyawans);
-        model.addAttribute("hasPrev", hasPrev);
-        model.addAttribute("prev", pageNumber - 1);
-        model.addAttribute("hasNext", hasNext);
-        model.addAttribute("next", pageNumber + 1);
-        return "karyawan-list";
-    }
-    @GetMapping(value = {"/add"})
-    public String showAddKaryawan(Model model) {
-        Karyawan karyawan = new Karyawan();
-        model.addAttribute("add", true);
-        model.addAttribute("karyawan", karyawan);
+    @Autowired
+    public TemplateResponse templateResponse;
 
-        return "karyawan-edit";
+    @PostMapping("/save")
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<Map>save(@Valid @RequestBody Karyawan kryModel){
+        Map kry = karyawanService.insert(kryModel);
+        return new ResponseEntity<Map>(kry, HttpStatus.OK);
     }
-    @PostMapping(value = "/add")
-    public String addKaryawan(Model model,
-                            @ModelAttribute("karyawan") Karyawan karyawan) {
-        try {
-            System.out.println("nilai karyawan = " + karyawan.getNama());
-            Karyawan newKaryawan = karyawanService.save(karyawan);
-            return "redirect:/v1/view/karyawan/" + String.valueOf(newKaryawan.getId());
-        } catch (Exception ex) {
 
-            String errorMessage = ex.getMessage();
-            model.addAttribute("errorMessage", errorMessage);
-            model.addAttribute("add", true);
-            return "karyawan-edit";
-        }
+    @PutMapping("/update")
+    public ResponseEntity<Map>update(@RequestBody Karyawan kryModel){
+        Map kry = karyawanService.update(kryModel);
+        return new ResponseEntity<Map>(kry, HttpStatus.OK);
     }
-    @GetMapping(value = {"/{karyawanId}/edit"})
-    public String showEditKaryawan(Model model, @PathVariable long karyawanId) {
-        Karyawan karyawan = null;
-        karyawan = karyawanService.findById(karyawanId);
-        model.addAttribute("add", false);
-        model.addAttribute("karyawan", karyawan);
-        return "karyawan-edit";
-    }
-    @PostMapping(value = {"/{karyawanId}/edit"})
-    public String updateKaryawan(Model model,
-                               @PathVariable long karyawanId,
-                               @ModelAttribute("karyawan") Karyawan karyawan) {
-        try {
-            karyawan.setId(karyawanId);
-            karyawanService.update(karyawan);
-            return "redirect:/v1/view/karyawan/" + String.valueOf(karyawan.getId());
-        } catch (Exception ex) {
-            // log exception first,
-            // then show error
-            String errorMessage = ex.getMessage();
-            model.addAttribute("errorMessage", errorMessage);
 
-            model.addAttribute("add", false);
-            return "karyawan-edit";
-        }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Map>delete(@PathVariable(value = "id")Long id){
+        Map kry = karyawanService.delete(id);
+        return new ResponseEntity<Map>(kry, HttpStatus.OK);
     }
-    @GetMapping(value = "/{karyawanId}")
-    public String getKaryawanById(Model model, @PathVariable long karyawanId) {
-        Karyawan karyawan = null;
-        karyawan = karyawanService.findById(karyawanId);
-        model.addAttribute("karyawan", karyawan);
-        return "karyawan";
+
+    @GetMapping("/list")
+    public ResponseEntity<Map>listByNama(@RequestParam() int page,
+                                         @RequestParam() int size){
+        Map list = karyawanService.getAll(size, page);
+        return new ResponseEntity<Map>(list, new HttpHeaders(), HttpStatus.OK);
+
     }
-    @GetMapping(value = {"/{karyawanId}/delete"})
-    public String showDeleteKaryawanById(
-            Model model, @PathVariable long karyawanId) {
-        Karyawan karyawan = null;
-        karyawan = karyawanService.findById(karyawanId);
-        model.addAttribute("allowDelete", true);
-        model.addAttribute("karyawan", karyawan);
-        return "karyawan";
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Map>getById(@PathVariable(value = "id")Long id){
+        Map dataKaryawan = karyawanService.getbyIDKaryawan(id);
+        return new ResponseEntity<Map>(dataKaryawan, new HttpHeaders(), HttpStatus.OK);
+
     }
-    @PostMapping(value = {"/{karyawanId}/delete"})
-    public String deleteKaryawanById(
-            Model model, @PathVariable long karyawanId) {
-        karyawanService.deleted(karyawanId);
-        return "redirect:/v1/view/karyawan/list";
-    }
+
 }
