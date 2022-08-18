@@ -45,10 +45,10 @@ public class KaryawanTrainingServiceImpl implements KaryawanTrainingService {
             if(templateResponse.chekNull(request.getTraining_date())){
                 return   templateResponse.templateEror("training_date Tidak boleh kosong!!");
             }
-//             Training chekIdtTraining = trainingRepository.getbyID(request.getTraining().getId());
-//             if(templateResponse.chekNull(chekIdtTraining)){
-//                 return   templateResponse.templateEror("Id Training Tidak boleh null");
-//             }
+            // Training chekIdtTraining = trainingRepository.getbyID(request.getTraining().getId());
+            // if(templateResponse.chekNull(chekIdtTraining)){
+            //     return   templateResponse.templateEror("Id Training Tidak boleh null");
+            // }
             Karyawan chekIdKaryawan =  karyawanRepository.getbyIDKaryawan(request.getKaryawan().getId());
             if(templateResponse.chekNull(chekIdKaryawan)){
                 return   templateResponse.templateEror("Id Karyawan Tidak ada di database");
@@ -93,12 +93,53 @@ public class KaryawanTrainingServiceImpl implements KaryawanTrainingService {
             return templateResponse.templateEror(e);
         }
     }
+
+    @Override
+    public Map update(KaryawanTraining karyawanTrainingReq, Long idKaryawanTraining) {
+        try {
+
+            KaryawanTraining chekIdBkaryawanTraining = karyawanTrainingRepository.getbyID(idKaryawanTraining);
+            if (templateResponse.chekNull(chekIdBkaryawanTraining)) {
+                return templateResponse.templateEror("Id Karyawan Training Not found");
+            }
+            Karyawan chekIdKaryawan = karyawanRepository.getbyIDKaryawan(karyawanTrainingReq.getKaryawan().getId());
+            if (templateResponse.chekNull(chekIdKaryawan)) {
+                return templateResponse.templateEror("Id Karyawan Not found");
+            }
+            Training chekIdTraining = trainingRepository.getbyID(karyawanTrainingReq.getTraining().getId());
+            if (templateResponse.chekNull(chekIdTraining)) {
+                return templateResponse.templateEror("Id Training Not found");
+            }
+
+            chekIdBkaryawanTraining.setTraining_date(karyawanTrainingReq.getTraining_date());
+            chekIdBkaryawanTraining.setTraining(chekIdTraining);
+            chekIdBkaryawanTraining.setKaryawan(chekIdKaryawan);
+
+            KaryawanTraining dosave = karyawanTrainingRepository.save(chekIdBkaryawanTraining);
+
+            return templateResponse.templateSukses(dosave);
+        } catch (Exception e) {
+            return templateResponse.templateEror(e);
+        }
+    }
+
     @Override
     public Map getAll(int size, int page) {
         try {
             Pageable show_data = PageRequest.of(page, size);
             Page<KaryawanTraining> list = karyawanTrainingRepository.getAllData(show_data);
             return templateResponse.templateSukses(list);
+        } catch (Exception e) {
+            log.error("ada error di method getAll:" + e);
+            return templateResponse.templateEror(e);
+        }
+    }
+
+    @Override
+    public Map getbyIDKaryawan(Long id) {
+        try {
+            KaryawanTraining karyawanTrainingById = karyawanTrainingRepository.getbyID(id);
+            return templateResponse.templateSukses(karyawanTrainingById);
         } catch (Exception e) {
             log.error("ada error di method getAll:" + e);
             return templateResponse.templateEror(e);

@@ -18,14 +18,19 @@
             <td><input type="text" th:field="*{nama}" /></td>
         </tr>
         <tr>
-            <td>Jk</td>
+            <td>JK</td>
             <td>:</td>
             <td><input type="text" th:field="*{jk}" /></td>
         </tr>
         <tr>
-            <td>Dob</td>
+            <td>DOB</td>
             <td>:</td>
             <td><input type="text" th:field="*{dob}" /></td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>:</td>
+            <td><input type="text" th:field="*{alamat}" /></td>
         </tr>
         <tr>
             <td>Status</td>
@@ -33,9 +38,14 @@
             <td><input type="text" th:field="*{status}"/></td>
         </tr>
         <tr>
-            <td>Alamat</td>
+            <td>NIK</td>
             <td>:</td>
-            <td><input type="text" th:field="*{alamat}"/></td>
+            <td><input type="text" th:field="*{nik}" /></td>
+        </tr>
+        <tr>
+            <td>NPWP</td>
+            <td>:</td>
+            <td><input type="text" th:field="*{npwp}" /></td>
         </tr>
     </table>
     <input type="submit" th:value="${add} ? 'Create' : 'Update'" />

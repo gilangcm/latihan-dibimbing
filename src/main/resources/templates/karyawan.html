@@ -12,19 +12,24 @@
 <div th:if="${karyawan}">
     <table border="0">
         <tr>
-            <td>Name</td>
+            <td>Nama</td>
             <td>:</td>
             <td th:utext="${karyawan.nama}">...</td>
         </tr>
         <tr>
-            <td>Jk</td>
+            <td>JK</td>
             <td>:</td>
             <td th:utext="${karyawan.jk}">...</td>
         </tr>
         <tr>
-            <td>dob</td>
+            <td>DOB</td>
             <td>:</td>
             <td th:utext="${karyawan.dob}">...</td>
+        </tr>
+        <tr>
+            <td>Alamat</td>
+            <td>:</td>
+            <td th:utext="${karyawan.alamat}">...</td>
         </tr>
         <tr>
             <td>Status</td>
@@ -32,9 +37,14 @@
             <td th:utext="${karyawan.status}">...</td>
         </tr>
         <tr>
-            <td>Alamat</td>
+            <td>NIK</td>
             <td>:</td>
-            <td th:utext="${karyawan.alamat}">...</td>
+            <td th:utext="${karyawan.nik}">...</td>
+        </tr>
+        <tr>
+            <td>NPWP</td>
+            <td>:</td>
+            <td th:utext="${karyawan.npwp}">...</td>
         </tr>
     </table>
     <br/><br/>
@@ -48,5 +58,4 @@
 </div>
 <div th:if="${errorMessage}" th:utext="${errorMessage}" class="error" />
 </body>
-</html>
 </html>

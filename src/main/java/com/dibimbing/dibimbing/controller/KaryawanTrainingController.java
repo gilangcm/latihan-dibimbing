@@ -27,25 +27,11 @@ public class KaryawanTrainingController {
     @Autowired
     public TemplateResponse templateResponse;
 
-    @PostMapping("/save")
-    @ExceptionHandler(ConstraintViolationException.class)
-    public ResponseEntity<Map> save(@Valid @RequestBody KaryawanTraining kryTraining){
-        Map kry = karyawanTrainingService.insert(kryTraining);
-        return new ResponseEntity<Map>(kry, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Map>delete(@PathVariable(value = "id")Long id){
-        Map kry = karyawanTrainingService.delete(id);
-        return new ResponseEntity<Map>(kry, HttpStatus.OK);
-    }
-
-    @GetMapping("/list")
-    public ResponseEntity<Map>listKaryawanTraining(@RequestParam() Integer page,
-                                                   @RequestParam() Integer size){
-        Map list = karyawanTrainingService.getAll(size, page);
-        return new ResponseEntity<Map>(list, new HttpHeaders(), HttpStatus.OK);
-
+    @PutMapping("/update/{idKaryawanTraining}")
+    public ResponseEntity<Map>update(@PathVariable(value = "idKaryawanTraining") Long idKaryawanTraining,
+                                     @RequestBody KaryawanTraining karyawanTraining ){
+        Map rek = karyawanTrainingService.update(karyawanTraining,idKaryawanTraining);
+        return new ResponseEntity<Map>(rek, HttpStatus.OK);
     }
 
 

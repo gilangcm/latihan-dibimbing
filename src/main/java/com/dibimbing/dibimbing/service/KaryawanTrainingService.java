@@ -10,6 +10,8 @@ public interface KaryawanTrainingService {
 
     public Map delete(Long kry);
 
-    Map getAll(int size, int page);
+    public Map update(KaryawanTraining karyawan, Long idKaryawanTraining);
+    public Map getAll(int size, int page);
+    public Map getbyIDKaryawan(Long id);
 
 }

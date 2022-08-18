@@ -86,7 +86,7 @@ public class QuerySP {
             ";\n";
 
     public String getkaryawan = "CREATE OR REPLACE FUNCTION public.getkaryawan(rqid bigint)\n" +
-            " RETURNS TABLE(resid bigint, resnama character varying, resjk character varying, resdob date, resalamat text, resstatus character varying, resnik character varying, resnpwp character varying)\n" +
+            " RETURNS TABLE(resid bigint, resnama character varying, resjk character varying, resdob timestamp, resalamat character varying, resstatus character varying, resnik character varying, resnpwp character varying)\n" +
             " LANGUAGE plpgsql\n" +
             "AS $function$\n" +
             "\tBEGIN\n" +

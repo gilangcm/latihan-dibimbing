@@ -29,7 +29,7 @@ public class KaryawanControllerMVC {
     //    Index Page
     @GetMapping(value = {"/", "/index"})
     public String index(Model model) {
-        model.addAttribute("title", "Title Saya");
+        model.addAttribute("title", "Perusahaan ABC");
         return "index";
     }
 
