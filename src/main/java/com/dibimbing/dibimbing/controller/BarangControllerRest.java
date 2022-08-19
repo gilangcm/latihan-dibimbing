@@ -43,7 +43,7 @@ public class BarangControllerRest {
     }
 
     @GetMapping("/list")
-    public ResponseEntity<Map> listByBama(
+    public ResponseEntity<Map> listByNama(
             @RequestParam() Integer page,
             @RequestParam() Integer size) {
         Map list = barangService.getAll(size, page);
