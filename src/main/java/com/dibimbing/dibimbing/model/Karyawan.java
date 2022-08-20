@@ -1,12 +1,14 @@
 package com.dibimbing.dibimbing.model;
 
 import lombok.Data;
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.Where;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -40,5 +42,10 @@ public class Karyawan extends AbstractDate implements Serializable {
 
     @Column(name = "npwp", nullable = false, length = 16)
     private String npwp;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "karyawan", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Rekening> rekenings ;
+
 
 }
